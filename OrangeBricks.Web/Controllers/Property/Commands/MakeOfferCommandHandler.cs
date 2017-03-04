@@ -13,7 +13,7 @@ namespace OrangeBricks.Web.Controllers.Property.Commands
             _context = context;
         }
 
-        public void Handle(MakeOfferCommand command)
+        public void Handle(MakeOfferCommand command, string buyerId)
         {
             var property = _context.Properties.Find(command.PropertyId);
 
@@ -22,7 +22,8 @@ namespace OrangeBricks.Web.Controllers.Property.Commands
                 Amount = command.Offer,
                 Status = OfferStatus.Pending,
                 CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now
+                UpdatedAt = DateTime.Now,
+                BuyerUserId = buyerId
             };
 
             if (property.Offers == null)
