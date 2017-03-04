@@ -17,23 +17,26 @@ namespace OrangeBricks.Web.Controllers.Property.Commands
         {
             var property = _context.Properties.Find(command.PropertyId);
 
-            var offer = new Offer
+            if (property != null)
             {
-                Amount = command.Offer,
-                Status = OfferStatus.Pending,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now,
-                BuyerUserId = buyerId
-            };
+                var offer = new Offer
+                {
+                    Amount = command.Offer,
+                    Status = OfferStatus.Pending,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    BuyerUserId = buyerId
+                };
 
-            if (property.Offers == null)
-            {
-                property.Offers = new List<Offer>();
+                if (property.Offers == null)
+                {
+                    property.Offers = new List<Offer>();
+                }
+
+                property.Offers.Add(offer);
+
+                _context.SaveChanges();
             }
-                
-            property.Offers.Add(offer);
-            
-            _context.SaveChanges();
         }
     }
 }

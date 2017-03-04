@@ -22,24 +22,28 @@ namespace OrangeBricks.Web.Controllers.Offers.Builders
                 .Include(x => x.Offers)
                 .SingleOrDefault();
 
-            var offers = property.Offers ?? new List<Offer>();
-
-            return new OffersOnPropertyViewModel
+            if (property != null)
             {
-                HasOffers = offers.Any(),
-                Offers = offers.Select(x => new OfferViewModel
+                var offers = property.Offers ?? new List<Offer>();
+
+                return new OffersOnPropertyViewModel
                 {
-                    Id = x.Id,
-                    Amount = x.Amount,
-                    CreatedAt = x.CreatedAt,
-                    IsPending = x.Status == OfferStatus.Pending,
-                    Status = x.Status.ToString()
-                }),
-                PropertyId = property.Id, 
-                PropertyType = property.PropertyType,
-                StreetName = property.StreetName,
-                NumberOfBedrooms = property.NumberOfBedrooms
-            };
+                    HasOffers = offers.Any(),
+                    Offers = offers.Select(x => new OfferViewModel
+                    {
+                        Id = x.Id,
+                        Amount = x.Amount,
+                        CreatedAt = x.CreatedAt,
+                        IsPending = x.Status == OfferStatus.Pending,
+                        Status = x.Status.ToString()
+                    }),
+                    PropertyId = property.Id,
+                    PropertyType = property.PropertyType,
+                    StreetName = property.StreetName,
+                    NumberOfBedrooms = property.NumberOfBedrooms
+                };
+            }
+            return new OffersOnPropertyViewModel();
         }
     }
 }

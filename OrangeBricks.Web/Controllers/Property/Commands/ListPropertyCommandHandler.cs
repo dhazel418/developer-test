@@ -14,8 +14,11 @@ namespace OrangeBricks.Web.Controllers.Property.Commands
         public void Handle(ListPropertyCommand command)
         {
             var property = _context.Properties.Find(command.PropertyId);
-            property.IsListedForSale = true;
-            _context.SaveChanges();
+            if (property != null)
+            {
+                property.IsListedForSale = true;
+                _context.SaveChanges();
+            }
         }
     }
 }

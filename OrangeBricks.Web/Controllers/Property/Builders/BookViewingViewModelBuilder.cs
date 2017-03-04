@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using OrangeBricks.Web.Controllers.Property.ViewModels;
+﻿using OrangeBricks.Web.Controllers.Property.ViewModels;
 using OrangeBricks.Web.Models;
 
 namespace OrangeBricks.Web.Controllers.Property.Builders

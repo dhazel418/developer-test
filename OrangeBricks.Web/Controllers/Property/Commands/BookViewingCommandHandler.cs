@@ -17,26 +17,29 @@ namespace OrangeBricks.Web.Controllers.Property.Commands
         {
             var property = _context.Properties.Find(command.PropertyId);
 
-            DateTime requestedDateTime = new DateTime(command.RequestedDate.Year, 
-                                                      command.RequestedDate.Month, 
-                                                      command.RequestedDate.Day, 
-                                                      command.RequestedTime.Hour, 
-                                                      command.RequestedTime.Minute, 
-                                                      0);
-            var viewing = new Viewing
+            if (property != null)
             {
-                RequestedDateTime = requestedDateTime,
-                BuyerUserId = buyerId
-            };
+                DateTime requestedDateTime = new DateTime(command.RequestedDate.Year,
+                                                          command.RequestedDate.Month,
+                                                          command.RequestedDate.Day,
+                                                          command.RequestedTime.Hour,
+                                                          command.RequestedTime.Minute,
+                                                          0);
+                var viewing = new Viewing
+                {
+                    RequestedDateTime = requestedDateTime,
+                    BuyerUserId = buyerId
+                };
 
-            if (property.Viewings == null)
-            {
-                property.Viewings = new List<Viewing>();
+                if (property.Viewings == null)
+                {
+                    property.Viewings = new List<Viewing>();
+                }
+
+                property.Viewings.Add(viewing);
+
+                _context.SaveChanges();
             }
-
-            property.Viewings.Add(viewing);
-
-            _context.SaveChanges();
         }
     }
 }

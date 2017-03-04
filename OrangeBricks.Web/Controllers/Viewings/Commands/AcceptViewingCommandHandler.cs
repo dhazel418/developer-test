@@ -14,9 +14,11 @@ namespace OrangeBricks.Web.Controllers.Viewings.Commands
         public void Handle(AcceptViewingCommand command)
         {
             var viewing = _context.Viewings.Find(command.ViewingId);
-            viewing.ViewingStatus = ViewingStatus.Accepted;
-
-            _context.SaveChanges();
+            if (viewing != null)
+            {
+                viewing.ViewingStatus = ViewingStatus.Accepted;
+                _context.SaveChanges();
+            }
         }
     }
 }

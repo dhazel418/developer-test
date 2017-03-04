@@ -16,10 +16,13 @@ namespace OrangeBricks.Web.Controllers.Offers.Commands
         {
             var offer = _context.Offers.Find(command.OfferId);
 
-            offer.UpdatedAt = DateTime.Now;
-            offer.Status = OfferStatus.Rejected;
+            if (offer != null)
+            {
+                offer.UpdatedAt = DateTime.Now;
+                offer.Status = OfferStatus.Rejected;
 
-            _context.SaveChanges();
+                _context.SaveChanges();
+            }
         }
     }
 }
